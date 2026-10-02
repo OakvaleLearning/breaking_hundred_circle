@@ -1,69 +1,92 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Hero } from "@/components/Hero";
+import { Marquee } from "@/components/Marquee";
+import { OfferCards } from "@/components/OfferCards";
+import { Method } from "@/components/Method";
+import { Closing } from "@/components/Closing";
+import { AnimatedHeading } from "@/components/AnimatedHeading";
+import { Reveal } from "@/components/Reveal";
+import { scaleIn } from "@/components/motion";
+import { site } from "@/lib/site";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <Hero />
+
+      <div className="intro-strip">
+        <div className="wrap">
+          <Reveal as="p">
+            Exceptional women deserve more than a seat at the table. They deserve a community
+            that helps them shape what happens next.
+          </Reveal>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </div>
+
+      <Marquee items={site.pillars} />
+
+      <section className="section alt" id="offerings">
+        <div className="wrap">
+          <div className="section-heading">
+            <Reveal as="span" className="eyebrow">Find your place</Reveal>
+            <AnimatedHeading text="One mission. Different ways to be part of it." />
+            <Reveal as="p" delay={0.15}>
+              Whether you are ready for ongoing support, a deeper programme or a room full of
+              people who share your ambition, there is a place for you here.
+            </Reveal>
+          </div>
+          <OfferCards />
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="section dark">
+        <div className="wrap">
+          <div className="section-heading">
+            <Reveal as="span" className="eyebrow">Our approach</Reveal>
+            <AnimatedHeading text="Belief comes before breakthrough." />
+            <Reveal as="p" delay={0.15}>
+              Our five-part method gives women space to see what is possible, develop their
+              leadership and create a path for others.
+            </Reveal>
+          </div>
+          <Method />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap split">
+          <div>
+            <Reveal as="span" className="eyebrow" style={{ color: "var(--wine)" }}>
+              Why we exist
+            </Reveal>
+            <AnimatedHeading text="Talent is everywhere. Opportunity is not." />
+            <Reveal as="p" delay={0.1}>
+              Breaking Hundred Circle was founded by Funmi Onamusi to make leadership
+              development, connection and visibility more accessible to women from minority
+              ethnic backgrounds.
+            </Reveal>
+            <Reveal as="p" delay={0.18}>
+              We bring people together to learn, challenge barriers and build legacies that
+              reach beyond any one career.
+            </Reveal>
+            <Reveal delay={0.26}>
+              <Link className="text-link" href="/membership">
+                Find your community <span aria-hidden>↗</span>
+              </Link>
+            </Reveal>
+          </div>
+
+          <Reveal className="quote-block" variants={scaleIn}>
+            <span className="eyebrow">What we believe</span>
+            <blockquote>
+              When one woman breaks through, she can hold the door open for many more.
+            </blockquote>
+            <span>Breaking Hundred Circle</span>
+          </Reveal>
+        </div>
+      </section>
+
+      <Closing />
+    </>
   );
 }
