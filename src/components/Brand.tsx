@@ -32,6 +32,7 @@ export function Brand({
           width={2500}
           height={2500}
           sizes="(max-width: 700px) 96px, 120px"
+          loading="eager"
         />
       </motion.span>
     </Link>

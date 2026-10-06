@@ -18,7 +18,6 @@ export function Photo({
   sizes: string;
   className?: string;
   style?: React.CSSProperties;
-  /** Only for above-the-fold images; everything else lazy-loads as it nears the viewport. */
   preload?: boolean;
 }) {
   return (
@@ -30,6 +29,7 @@ export function Photo({
         sizes={sizes}
         preload={preload}
         style={{ objectFit: "cover" }}
+        loading="eager"
       />
     </div>
   );
