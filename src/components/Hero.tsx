@@ -29,7 +29,7 @@ export function Hero() {
           // and the wrapper is already aria-hidden
           alt=""
           sizes="100vw"
-          priority
+          preload
           style={{ height: "100%" }}
         />
       </motion.div>

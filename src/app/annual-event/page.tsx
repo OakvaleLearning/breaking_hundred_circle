@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
@@ -5,7 +7,7 @@ import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import { Faq } from "@/components/Faq";
 import { Closing } from "@/components/Closing";
-import { Photo } from "@/components/Photo";
+import { Carousel, type Slide } from "@/components/Carousel";
 import { Marquee } from "@/components/Marquee";
 import { scaleIn } from "@/components/motion";
 import { site } from "@/lib/site";
@@ -39,6 +41,26 @@ const programme = [
   },
 ];
 
+/**
+ * Every image in public/annual_events appears in the carousel, in filename
+ * order. Add or remove photos there; no code change is needed.
+ */
+const EVENTS_DIR = "annual_events";
+const IMAGE_EXT = /\.(jpe?g|png|webp|avif)$/i;
+
+function eventPhotos(): Slide[] {
+  const dir = path.join(process.cwd(), "public", EVENTS_DIR);
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((file) => IMAGE_EXT.test(file))
+    .sort()
+    .map((file, i) => ({
+      src: `/${EVENTS_DIR}/${encodeURIComponent(file)}`,
+      alt: `Breaking Hundred Circle annual event, photo ${i + 1}`,
+    }));
+}
+
 const faqs = [
   {
     q: "Is it a retreat or a conference?",
@@ -59,6 +81,7 @@ const faqs = [
 ];
 
 export default function AnnualEventPage() {
+  const photos = eventPhotos();
   return (
     <>
       <PageHero
@@ -129,30 +152,19 @@ export default function AnnualEventPage() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="wrap">
-          <div className="section-heading">
-            <Reveal as="span" className="eyebrow">From last year</Reveal>
-            <AnimatedHeading text="What the room looks like." />
+      {photos.length > 0 && (
+        <section className="section">
+          <div className="wrap">
+            <div className="section-heading">
+              <Reveal as="span" className="eyebrow">From last year</Reveal>
+              <AnimatedHeading text="What the room looks like." />
+            </div>
+            <Reveal variants={scaleIn}>
+              <Carousel slides={photos} label="Photos from the annual event" />
+            </Reveal>
           </div>
-          <RevealGroup className="grid3" step={0.1}>
-            {[
-              { src: "/images/event-keynote.jpg", alt: "A speaker mid-sentence on the main stage" },
-              { src: "/images/event-workshop.jpg", alt: "A small group working together in a breakout workshop" },
-              { src: "/images/event-dinner.jpg", alt: "Guests laughing together at the celebration dinner" },
-            ].map((photo) => (
-              <RevealItem key={photo.src}>
-                <Photo
-                  src={photo.src}
-                  alt={photo.alt}
-                  sizes="(max-width: 700px) 100vw, 401px"
-                  style={{ aspectRatio: "4 / 5" }}
-                />
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="section alt">
         <div className="wrap">

@@ -11,14 +11,15 @@ export function Photo({
   sizes,
   className,
   style,
-  priority = false,
+  preload = false,
 }: {
   src: string;
   alt: string;
   sizes: string;
   className?: string;
   style?: React.CSSProperties;
-  priority?: boolean;
+  /** Only for above-the-fold images; everything else lazy-loads as it nears the viewport. */
+  preload?: boolean;
 }) {
   return (
     <div className={`photo ${className ?? ""}`} style={style}>
@@ -27,9 +28,8 @@ export function Photo({
         alt={alt}
         fill
         sizes={sizes}
-        priority={priority}
+        preload={preload}
         style={{ objectFit: "cover" }}
-        loading="eager"
       />
     </div>
   );
