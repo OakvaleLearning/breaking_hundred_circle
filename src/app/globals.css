@@ -185,27 +185,9 @@ input:focus-visible {
 }
 .nav { display: flex; align-items: center; gap: 34px; }
 .brand { text-decoration: none; display: flex; align-items: center; gap: 12px; }
-.brand-mark {
-  width: 38px; height: 38px;
-  border: 2px solid var(--wine);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-family: var(--font-manrope), Manrope, sans-serif;
-  font-weight: 800;
-  font-size: 1.1rem;
-  letter-spacing: -0.13em;
-  padding-right: 3px;
-  flex: none;
-}
-.brand-text {
-  font-family: var(--font-manrope), Manrope, sans-serif;
-  font-weight: 800;
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  line-height: 1.16;
-}
+.brand-logo { display: block; width: 64px; height: 64px; flex: none; }
+.brand-logo img { display: block; width: 100%; height: 100%; }
+.footer .brand-logo { width: 120px; height: 120px; }
 .links { display: flex; align-items: center; gap: 28px; margin-left: auto; }
 .links a { text-decoration: none; font-size: 0.9rem; font-weight: 700; position: relative; }
 .nav-link { padding-bottom: 3px; }
@@ -386,6 +368,11 @@ input:focus-visible {
 .included article > span { font-size: 0.78rem; letter-spacing: 0.14em; color: var(--wine); font-weight: 800; }
 .included h3 { margin: 23px 0 10px; }
 .included p { margin: 0; color: var(--muted); }
+.included .wide { grid-column: 1 / -1; }
+.included-points { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: point; }
+.included-points li { border-top: 2px solid var(--wine); padding-top: 16px; counter-increment: point; }
+.included-points li::before { content: "0" counter(point); display: block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; color: var(--wine); margin-bottom: 8px; }
+.included-points strong { display: block; margin-bottom: 6px; }
 
 .price-panel {
   background: var(--plum);
@@ -400,6 +387,8 @@ input:focus-visible {
 }
 .price { font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 600; font-size: clamp(3rem, 5vw, 5rem); line-height: 1; letter-spacing: -0.07em; }
 .price small { font-size: 1rem; letter-spacing: 0; color: #dbc8d3; }
+.price-was { margin: 12px 0 0; font-size: 0.95rem; color: #dbc8d3; }
+.price-was s { opacity: 0.8; }
 
 .join { max-width: 750px; }
 .join-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 30px; }
@@ -475,6 +464,13 @@ input:focus-visible {
 .footer-top { display: flex; justify-content: space-between; gap: 40px; padding-bottom: 55px; }
 .footer .brand { color: #fff; }
 .footer .small { color: #b9a8b3; }
+.socials { display: flex; gap: 12px; margin-top: 20px; }
+.socials a {
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 50%;
+  color: #eee4e9; transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.socials a:hover { background: #fff; color: #190b18; border-color: #fff; }
 .footer-nav { display: flex; gap: 25px; flex-wrap: wrap; }
 .footer-nav a { text-decoration: none; }
 .footer-bottom {
@@ -502,8 +498,8 @@ input:focus-visible {
 }
 @media (max-width: 700px) {
   .wrap { width: min(100% - 36px, 1240px); }
-  .brand-text { font-size: 0.75rem; }
-  .brand-mark { width: 34px; height: 34px; }
+  .brand-logo { width: 56px; height: 56px; }
+  .footer .brand-logo { width: 96px; height: 96px; }
   .hero.home { min-height: 620px; }
   /* The copy spans the full width on narrow screens, so the scrim has to be
      near-opaque across the whole frame rather than only on the left. */
@@ -516,7 +512,7 @@ input:focus-visible {
   .button { width: 100%; }
   .intro-strip .wrap, .closing .wrap, .footer-top, .footer-bottom, .price-panel { flex-direction: column; align-items: flex-start; }
   .section { padding: 76px 0; }
-  .grid3, .grid2, .split, .included, .steps { grid-template-columns: 1fr; }
+  .grid3, .grid2, .split, .included, .steps, .included-points { grid-template-columns: 1fr; }
   .offer-card { min-height: 310px; }
   .offer-card h3 { margin-top: 38px; }
   .method { grid-template-columns: 1fr; }

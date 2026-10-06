@@ -29,6 +29,7 @@ export function Photo({
         sizes={sizes}
         priority={priority}
         style={{ objectFit: "cover" }}
+        loading="eager"
       />
     </div>
   );

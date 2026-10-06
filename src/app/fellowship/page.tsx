@@ -8,6 +8,7 @@ import { Closing } from "@/components/Closing";
 import { Method } from "@/components/Method";
 import { Photo } from "@/components/Photo";
 import { scaleIn } from "@/components/motion";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Fellowship",
@@ -30,26 +31,62 @@ const steps = [
   },
 ];
 
-const included = [
-  {
-    tag: "LEARNING LABS",
-    title: "Monthly deep dives",
-    body: "Full-day labs on strategic influence, commercial fluency, board readiness and leading through resistance.",
-  },
-  {
-    tag: "COACHING",
-    title: "One-to-one coaching",
-    body: "Six confidential sessions with an accredited executive coach matched to your goals.",
-  },
+type Included = {
+  tag: string;
+  title: string;
+  body: string;
+  points?: { title: string; body: string }[];
+};
+
+const included: Included[] = [
   {
     tag: "COHORT",
-    title: "A cohort for life",
-    body: "A small group who move through the year together and stay connected long after it ends.",
+    title: "Cohort size: 10 only",
+    body: "This isn’t mass training. It’s strategic development inside a small, trusted circle where accountability is high, bonds run deep, and transformation is personal.",
+  },
+  {
+    tag: "MASTERCLASSES",
+    title: "Live monthly masterclasses",
+    body: "2.5-hour online masterclasses with world-class facilitators. Each includes expert insight on mission-critical leadership topics and real-time application, so you’re not just learning, you’re leading.",
+  },
+  {
+    tag: "MENTORING",
+    title: "Quarterly 1:1 executive mentoring",
+    body: "You’ll be paired with a seasoned C-suite leader who’ll stretch your thinking, challenge your blind spots, and help you refine your strategy to accelerate real-world outcomes.",
   },
   {
     tag: "CAPSTONE",
-    title: "Real-world capstone",
-    body: "Applied work with structured support, so the programme produces evidence of impact, not just certificates.",
+    title: "Capstone leadership project",
+    body: "You will design and deliver a high-impact project within your organisation, business, or community. This is not a theoretical exercise — it’s leadership in action, with visible results.",
+  },
+  {
+    tag: "IN PERSON",
+    title: "Three game-changing in-person intensives",
+    body: "Three days together in the room, marking the start, the midpoint and the finish of your year.",
+    points: [
+      {
+        title: "September · Launch Day",
+        body: "Networking, a guest speaker, leadership assessment, personality profiling and leadership goal setting.",
+      },
+      {
+        title: "March · Executive Presence Day",
+        body: "Gravitas, visibility and communication mastery.",
+      },
+      {
+        title: "August · Graduation Showcase",
+        body: "Present your capstone to a curated audience of sponsors, mentors and stakeholders.",
+      },
+    ],
+  },
+  {
+    tag: "ACCOUNTABILITY",
+    title: "Accountability partner",
+    body: "You’ll be matched with a peer from your cohort for shared motivation, regular check-ins, and honest conversations that drive follow-through.",
+  },
+  {
+    tag: "COMMUNITY",
+    title: "Lifetime community access",
+    body: "After the programme, you’ll gain exclusive access to the Breaking Hundred Community — a growing network of senior leaders committed to equity, excellence, and elevation.",
   },
 ];
 
@@ -60,7 +97,7 @@ const faqs = [
   },
   {
     q: "How is the Fellowship different from membership?",
-    a: "The Fellowship is selective, time-bound and intensive: a fixed cohort, one-to-one coaching and a capstone project. Membership is open all year and flexible around your schedule.",
+    a: "The Fellowship is selective, time-bound and intensive: a fixed cohort, one-to-one coaching and a capstone project. Membership is open now and flexible around your schedule.",
   },
   {
     q: "What is the time commitment?",
@@ -77,6 +114,7 @@ const faqs = [
 ];
 
 export default function FellowshipPage() {
+  const registerFormRef = site.joinForm;
   return (
     <>
       <PageHero
@@ -85,7 +123,7 @@ export default function FellowshipPage() {
         intro="A focused, 12-month leadership journey with learning, connection and a real-world capstone. Cohort 3 returns in 2028."
         ghost="12"
         tags={["12 months", "Selective cohort", "Cohort 3 · 2028"]}
-        cta={{ label: "Register your interest", href: "#interest" }}
+        cta={{ label: "Register your interest", href: registerFormRef }}
         stats={[
           { value: "12", label: "Months, start to showcase", to: 12 },
           { value: "6", label: "One-to-one coaching sessions", to: 6 },
@@ -137,10 +175,20 @@ export default function FellowshipPage() {
           </div>
           <RevealGroup className="included" step={0.09}>
             {included.map((item) => (
-              <RevealItem as="article" key={item.title}>
+              <RevealItem as="article" key={item.title} className={item.points ? "wide" : undefined}>
                 <span>{item.tag}</span>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
+                {item.points && (
+                  <ol className="included-points">
+                    {item.points.map((point) => (
+                      <li key={point.title}>
+                        <strong>{point.title}</strong>
+                        <p>{point.body}</p>
+                      </li>
+                    ))}
+                  </ol>
+                )}
               </RevealItem>
             ))}
           </RevealGroup>
@@ -171,7 +219,7 @@ export default function FellowshipPage() {
               year in between to prepare.
             </Reveal>
             <Reveal delay={0.26} style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 8 }}>
-              <a className="button" href="mailto:admin@breakinghundred.org?subject=Fellowship%20Cohort%203%20interest">
+              <a className="button" href={site.joinForm} target="_blank" rel="noopener noreferrer">
                 <span>Register your interest</span>
                 <span className="arrow" aria-hidden>↗</span>
               </a>
@@ -197,7 +245,7 @@ export default function FellowshipPage() {
         eyebrow="Cohort 3 · 2028"
         heading="Twelve months that change what you believe is possible."
         ctaLabel="Register your interest"
-        ctaHref="mailto:admin@breakinghundred.org?subject=Fellowship%20Cohort%203%20interest"
+        ctaHref={site.joinForm}
       />
     </>
   );

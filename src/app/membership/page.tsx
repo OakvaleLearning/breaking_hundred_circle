@@ -58,11 +58,15 @@ const faqs = [
   },
   {
     q: "Is membership the same as the Fellowship?",
-    a: "No. Membership is ongoing, flexible and open all year. The Fellowship is a selective 12-month programme with a cohort, a capstone project and a formal application process.",
+    a: "No. Membership is ongoing, flexible and open now. The Fellowship is a selective 12-month programme with a cohort, a capstone project and a formal application process.",
   },
   {
     q: "Can my employer pay?",
     a: "Yes. Many members are sponsored through a learning and development budget. Request joining details and we will send an invoice addressed to your organisation.",
+  },
+  {
+    q: "How long does the £299 rate last?",
+    a: "Only until the end of October. Register your interest by 31 October and you pay £299 for your first year. From 1 November, annual membership is £499.",
   },
   {
     q: "How do I pay?",
@@ -77,11 +81,11 @@ export default function MembershipPage() {
         eyebrow="The community"
         heading="Membership Circle"
         intro="Year-round leadership development, peer connection and visibility — built around the women who are changing who gets to lead."
-        tags={["Open all year", "Online and in person", "£299 per year"]}
+        tags={["Online and in person", "£299 if you register by 31 October"]}
         cta={{ label: "Join the Circle", href: "#join" }}
         stats={[
           { value: "12", label: "Masterclasses a year", to: 12 },
-          { value: "299", label: "Pounds per year, all inclusive", to: 299, prefix: "£" },
+          { value: "299", label: "Pounds per year if you register by 31 October (usually £499)", to: 299, prefix: "£" },
           { value: "5", label: "Stages of the Circle method", to: 5 },
         ]}
       />
@@ -135,6 +139,7 @@ export default function MembershipPage() {
               alt="Members seated in a circle, deep in conversation"
               sizes="(max-width: 700px) 100vw, 564px"
               style={{ minHeight: 440 }}
+              
             />
           </Reveal>
         </div>
@@ -144,15 +149,25 @@ export default function MembershipPage() {
         <div className="wrap">
           <Reveal className="price-panel" variants={scaleIn}>
             <div>
-              <span className="eyebrow" style={{ color: "var(--gold)" }}>Annual membership</span>
+              <span className="eyebrow" style={{ color: "var(--gold)" }}>Early-interest rate</span>
               <div className="price" style={{ marginTop: 14 }}>
                 £299 <small>/ year</small>
               </div>
+              <p className="price-was">
+                <s>£499 / year</s> · Ends 31 October
+              </p>
             </div>
-            <p style={{ margin: 0, maxWidth: 420, color: "#e9dce4" }}>
-              One fee, everything included. No joining fee, and you can cancel before renewal at
-              any point in the year.
-            </p>
+            <div style={{ maxWidth: 420, color: "#e9dce4" }}>
+              <p style={{ margin: 0 }}>
+                <strong style={{ color: "#fff" }}>This discount only lasts until the end of this month.</strong>{" "}
+                Register your interest by 31 October to pay £299. From 1 November, annual
+                membership is £499.
+              </p>
+              <p style={{ margin: "14px 0 0" }}>
+                One fee, everything included. No joining fee, and you can cancel before renewal at
+                any point in the year.
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -165,7 +180,8 @@ export default function MembershipPage() {
           <AnimatedHeading text="Request your joining details." />
           <Reveal as="p" delay={0.1} className="muted">
             Tell us who you are and we will send the joining and payment details, plus what to
-            expect in your first month.
+            expect in your first month. Register before 31 October to lock in £299 instead of
+            £499.
           </Reveal>
           <JoinForm />
         </div>
@@ -182,7 +198,7 @@ export default function MembershipPage() {
       </section>
 
       <Closing
-        eyebrow="Membership is open"
+        eyebrow="Membership is now open"
         heading="The Circle is stronger with you in it."
         ctaLabel="Join the Circle"
         ctaHref="#join"
